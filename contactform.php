@@ -7,8 +7,8 @@ if( isset($_POST['n']) && isset($_POST['e']) && isset($_POST['m']))
     $m = nl2br($_POST['m']);
     $to = "up201604503@fe.up.pt";
     $from = $e;
-    $subject = 'Contact form message';
-    $message = '<b>Name:</b>'.$n.'<br><b>Email:</br></b>'.$e.'<p>'.$m.'</p>';
+    $subject = 'Contact Form Message';
+    $message = '<b>Name:</b>'.$n.'<br><b>Email:</b></br>'.$e.'<p>'.$m.'</p>';
     
     $headers = "From: $from\n";
     $headers .= "MIME-VERSION: 1.0\n";
@@ -23,3 +23,5 @@ if( isset($_POST['n']) && isset($_POST['e']) && isset($_POST['m']))
     }
     
 }
+
+?>
