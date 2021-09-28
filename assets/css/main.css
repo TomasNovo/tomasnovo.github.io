@@ -2327,6 +2327,7 @@
 
 		.box.special {
 			text-align: center;
+			/* border: 1px solid #0e0f0f; */
 		}
 
 		.box .image.featured {
