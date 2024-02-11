@@ -711,54 +711,41 @@
   }
 </script>
 
-
 <script>
-// Wait for the DOM to be fully loaded
-document.addEventListener("DOMContentLoaded", function() {
-  
-  // Select the form by ID
-  var form = document.getElementById('contact-form');
-  
-  // Listen for the form submission
-  form.addEventListener('submit', function(e) {
-    e.preventDefault(); // This prevents the traditional form submission
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+  e.preventDefault(); // Prevent the default form submission
 
-    // Prepare the data to be sent
-    var data = new FormData(form);
+  var formData = new FormData(this);
+  var form = this; // Reference to the form
 
-    // Send the data using Fetch API
-    fetch(form.action, {
-      method: form.method,
-      body: data,
-      headers: {
-        'Accept': 'application/json'
-      },
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (data.ok) {
-        // Handle the response for a successful submission
-        document.querySelector('.sent-message').style.display = 'block';
-        document.querySelector('.error-message').style.display = 'none';
-        form.reset(); // Reset the form after successful submission
-      } else {
-        // Handle any errors from the server
-        document.querySelector('.error-message').textContent = "There was an error submitting the form.";
-        document.querySelector('.error-message').style.display = 'block';
-      }
-    })
-    .catch(error => {
-      // Handle any network errors
-      document.querySelector('.error-message').textContent = "There was an error submitting the form.";
+  fetch(this.action, {
+    method: 'POST',
+    body: formData,
+  })
+  .then(response => {
+    if (response.ok) {
+      // Hide the form to show only the success message
+      form.style.display = 'none';
+      
+      // Display success message
+      document.querySelector('.sent-message').style.display = 'block';
+      
+      // Optionally, clear any previous error messages
+      document.querySelector('.error-message').style.display = 'none';
+    } else {
+      // Handle server-side errors (e.g., validation errors from Formspree)
+      document.querySelector('.error-message').innerHTML = 'There was an error with your submission. Please try again.';
       document.querySelector('.error-message').style.display = 'block';
-    });
-
-    // Prevent the default form action from occurring
-    return false;
+    }
+  })
+  .catch(error => {
+    // Handle network or other errors
+    document.querySelector('.error-message').innerHTML = 'I will get back to you as soon as possible!';
+    document.querySelector('.error-message').style.display = 'block';
+    document.querySelector('.error-message').style.backgroundColor = 'green';
   });
 });
 </script>
-
 
 </body>
 
